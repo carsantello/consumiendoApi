@@ -1,3 +1,12 @@
 html {
   background-color: tomato;
 }
+
+.divisor {
+  box-sizing: content-box;
+}
+
+body section {
+  align-items: center;
+  box-sizing: content-box;
+}

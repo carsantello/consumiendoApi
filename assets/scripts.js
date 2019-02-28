@@ -1,43 +1,45 @@
 //QUERYS al DOM
 const cards = document.getElementById('cards');
-//URL de API
-const apiUrl = 'https://rickandmortyapi.com/api/character';
+//URL de API de Rick&Morty characters
+const apiCha = 'https://rickandmortyapi.com/api/character';
 
-fetch(apiUrl)
+//es necesaria l generación de este codigo para traer el JSON
+fetch(apiCha)
   .then(function(response) {
-    console.log(response);
     return response.json();
   })
   .then(function(respJson){
-//para traer sin hardcode la info
-    const personajes = respJson.results
-//    for (let character of personajes) {
-//    console.log(respJson.results[0].name);
-      imprimirPersonajes(personajes);
+    const characters = respJson.results
+    // console.log(respJson.results);
+    // console.log(respJson.info);
+    printCharacters(characters);
+    console.log(respJson);
     })
   .catch(function(error){
     console.log(error);
   })
 
-  function imprimirPersonajes(personajes){
-    for(let character of personajes) {
-      cards.innerHTML += `
-        <p>${character.name}</p>
-        <img src="${character.image}">
-      `
-      console.log(character.name)
+// functions section
+  function printCharacters(characters){
+    for(let character of characters) {
+//nuevo ini
+//nuevo fin
+      fetch(character.location.url)
+        .then(function(resp){
+          return resp.json();
+        })
+        .then(function(respLoc){
+          cards.innerHTML += `
+          <p>${character.gender}</p>
+          <p>${character.name}</p>
+          <p>${character.id}</p>
+          <img src="${character.image}">
+          <p>${character.location.name}</p>
+          <p>${respLoc.dimension}</p>
+          <p>${character.episode}</p>
+          <p>${character.species}</p>
+          <p>${character.status}</p>
+          `
+        })
     }
   }
-
-//funcion anonima
-// function(){
-//
-//
-// }
-
-//funcion arrow PARA FUNCION ANONINMA
-//
-// () => {
-//
-//
-// }
